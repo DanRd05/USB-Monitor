@@ -1,37 +1,49 @@
 #ifndef dispositivos_H
 #define dispositivos_H
 
-#include <iostream>
+#include <vector>
 #include <string>
-#include <windows.h>
-#include <setupapi.h>
-#include <usbiodef.h>
-#include <initguid.h>
- 
-const int MAX_USB = 26;
 
- //Parte más importante del código, ya que esta sirve para reconocer los dispositivos que estan conectados desde windows.
-int reconocerUSB(std::string USBs[]){
-	DWORD unidades = GetLogicalDrives(); //esta sirve para las unidades extraibles USB, pq checa las letras ya ocupadas y las regresa, por ejemplo unidad D:\\
-	int canti = 0;
+struct USB {
+	int id;
+	std::string nombre;
+	std::string tipo;
+	std::string fabricante;
+	std::string modelo;
+	std::string fechaDeRegistro;
+	std::string estado;
+	int conexiones;
+};
+ 
+ 
+int asignarID(const std::vector<USB>& registros){
+	int nuevoID = 100;
 	
-	for (int i = 0; i < MAX_USB; i++){
-		if (unidades & (1 << i)){
-			char unidad[] = "A:\\";
-			unidad[0] = 'A' + i;
- 			
-			if (GetDriveTypeA(unidad) == DRIVE_REMOVABLE){ //este if checa si es un disco extraible, por ejemplo si es un disco nativo de la pc no lo tomará.
-				USBs[canti] = unidad;
-				canti++;
-			}
+	for (size_t i = 0; i < registros.size(); i++){
+		if(registros[i].id >= nuevoID){
+			nuevoID = registros[i].id + 1;
 		}
 	}
-	return canti;
+	
+	return nuevoID;
 }
  
-bool USBexiste(std::string unidad, std::string dispositivos[], int canti){
-	for (int i = 0; i < canti; i++){
-		if (dispositivos[i] == unidad){
+bool consultarID(const std::vector<USB>& registros, int ID){//Revisa que el usb al que esta asignado el ID exista y devuelve true o false al manejador de eventos para que se encargue del resto
+	for(size_t i = 0; i <= registros.size(); i++){
+		if (registros[i].id == ID){
+			return true;
+		}
+	}
+	return false;
+} 
+
+bool actualizarUSB(std::vector<USB>& registros, int ID, const std::string& nuevoNombre, const std::string& nuevoTipo, const std::string& nuevoFabricante, const std::string& nuevoModelo){
+	for(size_t i = 0; i < registros.size(); i++){
+		if (registros[i].id == ID){
+			registros[i].nombre = nuevoNombre;
+			registros[i].tipo = nuevoTipo;
+			registros[i].fabricante = nuevoFabricante;
+			registros[i].modelo = nuevoModelo;
 			return true;
 		}
 	}
