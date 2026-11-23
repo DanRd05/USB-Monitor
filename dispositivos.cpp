@@ -1,37 +1,53 @@
 #ifndef dispositivos_H
 #define dispositivos_H
 
-#include <iostream>
+#include <vector>
 #include <string>
-#include <windows.h>
+
+struct USB {
+	int id;
+	std::string nombre;
+	std::string tipo;
+	std::string fabricante;
+	std::string modelo;
+	std::string fechaDeRegistro;
+	std::string estado;
+	int conexiones;
+};
  
- const int MAX_USB = 26;
  
- int reconocerUSB(std::string USBs[]){
- 	DWORD unidades = GetLogicalDrives();
- 	int cantidad = 0;
- 	for (int i = 0; i < 26; i++){
- 		if (unidades & (1 << i)){
- 			
-			 char unidad[] = "A:\\";
- 			unidad[0] = 'A' + i;
- 			
- 			if (GetDriveTypeA(unidad) == DRIVE_REMOVABLE){
- 				USBs[cantidad] = unidad;
- 				cantidad++;
-			 }
-		 }
-	 }
-	 return cantidad;
- }
+int asignarID(const std::vector<USB>& registros){
+	int nuevoID = 100;
+	
+	for (size_t i = 0; i < registros.size(); i++){
+		if(registros[i].id >= nuevoID){
+			nuevoID = registros[i].id + 1;
+		}
+	}
+	
+	return nuevoID;
+}
  
- bool USBexiste(std::string unidad, std::string dispositivos[], int cantidad){
- 	for (int i = 0; i < cantidad; i++){
- 		if (USBs[i] == unidad){
- 			return true;
-		 }
-	 }
-	 return false;
- }
+bool consultarID(const std::vector<USB>& registros, int ID){//Revisa que el usb al que esta asignado el ID exista y devuelve true o false al manejador de eventos para que se encargue del resto
+	for(size_t i = 0; i <= registros.size(); i++){
+		if (registros[i].id == ID){
+			return true;
+		}
+	}
+	return false;
+} 
+
+bool actualizarUSB(std::vector<USB>& registros, int ID, const std::string& nuevoNombre, const std::string& nuevoTipo, const std::string& nuevoFabricante, const std::string& nuevoModelo){
+	for(size_t i = 0; i < registros.size(); i++){
+		if (registros[i].id == ID){
+			registros[i].nombre = nuevoNombre;
+			registros[i].tipo = nuevoTipo;
+			registros[i].fabricante = nuevoFabricante;
+			registros[i].modelo = nuevoModelo;
+			return true;
+		}
+	}
+	return false;
+}
 
 #endif
