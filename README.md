@@ -2,5 +2,6 @@ El objetivo de este proyecto es desarrollar un programa para la consola que dete
 
 
 
-ABRAN EL SERVER 🗣️🗣️🗣️
+ABRAN EL SERVER 🗣️🗣️🗣️ 
+NO.
 
