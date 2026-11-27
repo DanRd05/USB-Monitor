@@ -1,6 +1,7 @@
 #ifndef dispositivos_H
 #define dispositivos_H
 
+#include "dispositivos.h"
 #include <vector>
 #include <string>
 
@@ -29,7 +30,7 @@ int asignarID(const std::vector<USB>& registros){
 }
  
 bool consultarID(const std::vector<USB>& registros, int ID){//Revisa que el usb al que esta asignado el ID exista y devuelve true o false al manejador de eventos para que se encargue del resto
-	for(size_t i = 0; i <= registros.size(); i++){
+	for(size_t i = 0; i < registros.size(); i++){
 		if (registros[i].id == ID){
 			return true;
 		}

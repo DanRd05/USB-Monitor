@@ -4,8 +4,6 @@
 #include <iostream>
 #include <cstdlib>
 
-void menuInicial(){
-	std::cout << "aqui va el fucking menu";
-};
+void menuInicial();
 
 #endif

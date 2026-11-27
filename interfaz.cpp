@@ -1,11 +1,7 @@
-#ifndef interfaz_H
-#define interfaz_H
-
 #include <iostream>
 #include <cstdlib>
+#include "interfaz.h"
 
 void menuInicial(){
-	std::cout << "aqui va el fucking menu";
-};
-
-#endif
+	std::cout << "aqui iria el menu... si tan solo tuvieramos uno";
+}
