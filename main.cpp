@@ -2,6 +2,7 @@
 #include <windows.h>
 #include "interfaz.h"
 #include "dispositivos.h"
+#include "archivos.h"
 
 using namespace std;
 
@@ -9,5 +10,6 @@ using namespace std;
 
 int main(int argc, char** argv) {
 	menuInicial();
+	holaworld();
 	return 0;
 }

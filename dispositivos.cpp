@@ -1,21 +1,6 @@
-#ifndef dispositivos_H
-#define dispositivos_H
-
-#include "dispositivos.h"
 #include <vector>
 #include <string>
-
-struct USB {
-	int id;
-	std::string nombre;
-	std::string tipo;
-	std::string fabricante;
-	std::string modelo;
-	std::string fechaDeRegistro;
-	std::string estado;
-	int conexiones;
-};
- 
+#include "dispositivos.h"
  
 int asignarID(const std::vector<USB>& registros){
 	int nuevoID = 100;
@@ -50,5 +35,3 @@ bool actualizarUSB(std::vector<USB>& registros, int ID, const std::string& nuevo
 	}
 	return false;
 }
-
-#endif
