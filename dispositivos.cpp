@@ -1,5 +1,3 @@
-#include <vector>
-#include <string>
 #include "dispositivos.h"
  
 int asignarID(const std::vector<USB>& registros){
